@@ -7,3 +7,6 @@ Content-Type: application/json
   "courseName": "",
   "publishStatus": ""
 }
+
+###课程分类树查询
+GET {{content_host}}/content/course-category/tree-nodes?id=1
