@@ -76,3 +76,7 @@ Content-Type: application/json
     "1-3-2"
   ]
 }
+
+
+### 根据课程id查询课程教学计划树
+GET http://localhost:63040/content/teachplan/117/tree-nodes
