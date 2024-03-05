@@ -69,5 +69,16 @@ public class GlobalExceptionHandler {
         return new RestErrorResponse(errMessage);
     }
 
+    @ResponseBody
+    @ExceptionHandler(DeleteException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public ErrorResponse exception(DeleteException e){
+        //解析出错误信息
+        String errMessage = e.getMessage();
+        Long errorCode = e.getErrorCode();
+        log.error("全局异常捕获：" + errMessage);
+        return new ErrorResponse(errorCode,errMessage);
+    }
+
 
 }

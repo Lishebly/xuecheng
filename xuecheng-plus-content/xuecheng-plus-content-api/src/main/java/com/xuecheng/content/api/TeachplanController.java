@@ -41,4 +41,21 @@ public class TeachplanController {
         log.info("新增,修改接口");
         teachplanService.saveOrUpdateTeachplan(saveTeachplanDto);
     }
+
+    //删除课程计划的接口
+    @ApiOperation("删除课程计划的接口")
+    @DeleteMapping("/teachplan/{id}")
+    public void deleteTeachplan(@PathVariable("id") Long id) {
+        log.info("删除课程计划的接口");
+        teachplanService.deleteTeachplan(id);
+    }
+
+
+    //移动接口
+    @ApiOperation("移动接口")
+    @PostMapping("/teachplan/{type}/{courseId}")
+    public void moveDown(@PathVariable String type,@PathVariable Long courseId) {
+        log.info("移动接口");
+        teachplanService.move(type,courseId);
+    }
 }

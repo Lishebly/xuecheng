@@ -22,4 +22,9 @@ public class TeachplanServiceImplTest {
         System.out.println(teachplanTreeNodes);
     }
 
+    @Test
+    public  void Test(){
+      telplanService.move("movedown",269L);
+    }
+
 }

@@ -95,6 +95,25 @@
         order by one.orderby,
                  two.orderby
     </select>
+    <select id="getNextOrder" resultType="com.xuecheng.content.model.po.Teachplan">
+        select *
+        from teachplan
+        where  grade = 2 and parentid = #{parentId} and orderby &gt; #{orderby}
+        order by orderby
+        limit 1;
+    </select>
+    <select id="getPrevOrder" resultType="com.xuecheng.content.model.po.Teachplan">
+        select *
+        from teachplan
+        where  grade = 2 and parentid = #{parentId} and orderby &lt; #{orderby}
+        order by orderby desc
+        limit 1;
+    </select>
+    <select id="getMaxOrderby" resultType="java.lang.Integer">
+        select max(orderby) orderby
+        from teachplan
+        where parentid = #{parentId}
+    </select>
 
 
 </mapper>

@@ -91,3 +91,7 @@ Content-Type: application/json
   "grade" : 1,
   "pname" : "新章名称 [点击修改]"
 }
+
+### 移动
+POST http://localhost:63040/content/teachplan/moveup/269
+Content-Type: application/x-www-form-urlencoded
