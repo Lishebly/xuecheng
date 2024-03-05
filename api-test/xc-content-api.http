@@ -95,3 +95,6 @@ Content-Type: application/json
 ### 移动
 POST http://localhost:63040/content/teachplan/moveup/269
 Content-Type: application/x-www-form-urlencoded
+
+###查询教师列表
+GET http://localhost:63040/content/courseTeacher/list/72
