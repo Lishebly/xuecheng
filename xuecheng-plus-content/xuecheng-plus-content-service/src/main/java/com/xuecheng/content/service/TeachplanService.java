@@ -37,4 +37,10 @@ public interface TeachplanService {
      * @param courseId
      */
     void move(String type, Long courseId);
+
+    /**
+     * 根据课程id，删除课程计划
+     * @param id
+     */
+    void deleteTeachplanByCourseId(Long id);
 }

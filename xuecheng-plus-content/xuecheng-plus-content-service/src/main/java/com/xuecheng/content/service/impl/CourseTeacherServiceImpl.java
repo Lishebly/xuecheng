@@ -73,7 +73,12 @@ public class CourseTeacherServiceImpl implements CourseTeacherService {
     public void deleteCourseTeacher(Long id, Long courseId) {
         //把课程信息中的教师信息删除
         //删除课程教师信息
-        courseTeacherMapper.delete(new LambdaQueryWrapper<CourseTeacher>().eq(CourseTeacher::getCourseId, courseId).eq(CourseTeacher::getId, id));
+        if (id != null){
+            courseTeacherMapper.deleteById(id);
+        }else {
+            courseTeacherMapper.delete(new LambdaQueryWrapper<CourseTeacher>().eq(CourseTeacher::getCourseId, courseId));
+        }
+
     }
 
     /**

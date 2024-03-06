@@ -10,6 +10,7 @@ import com.xuecheng.base.model.PageResult;
 import com.xuecheng.content.mapper.CourseBaseMapper;
 import com.xuecheng.content.mapper.CourseCategoryMapper;
 import com.xuecheng.content.mapper.CourseMarketMapper;
+import com.xuecheng.content.mapper.TeachplanMapper;
 import com.xuecheng.content.model.dto.AddCourseDto;
 import com.xuecheng.content.model.dto.CourseBaseInfoDto;
 import com.xuecheng.content.model.dto.EditCourseDto;
@@ -18,6 +19,8 @@ import com.xuecheng.content.model.po.CourseBase;
 import com.xuecheng.content.model.po.CourseCategory;
 import com.xuecheng.content.model.po.CourseMarket;
 import com.xuecheng.content.service.CourseBaseInfoService;
+import com.xuecheng.content.service.CourseTeacherService;
+import com.xuecheng.content.service.TeachplanService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +50,12 @@ public class CourseBaseInfoServiceImpl implements CourseBaseInfoService {
 
     @Autowired
     private CourseCategoryMapper courseCategoryMapper;
+
+    @Autowired
+    private TeachplanService teachplanService;
+
+    @Autowired
+    private CourseTeacherService courseTeacherService;
 
     /**
      * 课程分页查询
@@ -138,6 +147,22 @@ public class CourseBaseInfoServiceImpl implements CourseBaseInfoService {
         BeanUtils.copyProperties(editCourseDto,courseMarket);
         saveCourseMarket(courseMarket);
         return getCourseBaseInfoDto(editCourseDto.getId());
+    }
+
+    @Override
+    @Transactional
+    public void delete(Long id) {
+        CourseBase courseBase = courseBaseMapper.selectById(id);
+        String auditStatus = courseBase.getAuditStatus();
+        if ("202002".equals(auditStatus)){
+            courseBaseMapper.deleteById(id);
+            courseMarketMapper.deleteById(id);
+            teachplanService.deleteTeachplanByCourseId(id);
+            courseTeacherService.deleteCourseTeacher(null,id);
+        }else {
+            XueChengPlusException.cast("课程已发布，不能删除");
+        }
+
     }
 
     /**

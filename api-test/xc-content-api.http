@@ -79,7 +79,7 @@ Content-Type: application/json
 
 
 ### 根据课程id查询课程教学计划树
-GET http://localhost:63040/content/teachplan/1/tree-nodes
+GET http://localhost:63040/content/teachplan/26/tree-nodes
 
 ### 新增或修改课程教学计划
 POST http://localhost:63040/content/teachplan

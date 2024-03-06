@@ -134,6 +134,24 @@ public class TeachplanServiceImpl implements TeachplanService {
         //本质上是获取两个课程 id 互换它俩排序字段
     }
 
+    /**
+     * 根据课程id删除课程计划
+     *
+     * @param id
+     */
+    @Override
+    @Transactional
+    public void deleteTeachplanByCourseId(Long id) {
+        //删除关联的媒体数据
+        LambdaQueryWrapper<TeachplanMedia> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(TeachplanMedia::getCourseId,id);
+        teachplanMediaMapper.delete(queryWrapper);
+        //删除课程计划
+        LambdaQueryWrapper<Teachplan> queryWrapper1 = new LambdaQueryWrapper<>();
+        queryWrapper1.eq(Teachplan::getCourseId,id);
+        teachplanMapper.delete(queryWrapper1);
+    }
+
     private void swapOrder(Teachplan t1, Teachplan t2) {
         Integer orderby = t1.getOrderby();
         t1.setOrderby(t2.getOrderby());
