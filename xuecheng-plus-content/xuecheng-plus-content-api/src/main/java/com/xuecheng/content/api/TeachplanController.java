@@ -1,5 +1,6 @@
 package com.xuecheng.content.api;
 
+import com.xuecheng.content.model.dto.BindingVideoAPIRequestDto;
 import com.xuecheng.content.model.dto.SaveTeachplanDto;
 import com.xuecheng.content.model.dto.TeachplanDto;
 import com.xuecheng.content.service.TeachplanService;
@@ -57,5 +58,20 @@ public class TeachplanController {
     public void moveDown(@PathVariable String type,@PathVariable Long courseId) {
         log.info("移动接口");
         teachplanService.move(type,courseId);
+    }
+
+
+    @ApiOperation(value = "课程计划和媒资信息绑定")
+    @PostMapping("/teachplan/association/media")
+    public void associationMedia(@RequestBody BindingVideoAPIRequestDto bindingVideoAPIRequestDto){
+        log.info("课程计划和媒资信息绑定");
+        teachplanService.bindVideo(bindingVideoAPIRequestDto);
+    }
+
+    @ApiOperation(value = "根据课程id删除课程计划和媒资信息绑定")
+    @DeleteMapping("/teachplan/association/media/{teachPlanId}/{mediaId}")
+    public void deleteAssociationMedia(@PathVariable("teachPlanId") Long teachPlanId,@PathVariable("mediaId") String mediaId){
+        log.info("根据课程id删除课程计划和媒资信息绑定");
+        teachplanService.deleteAssociationMedia(teachPlanId,mediaId);
     }
 }

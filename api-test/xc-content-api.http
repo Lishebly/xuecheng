@@ -8,6 +8,16 @@ Content-Type: application/json
   "publishStatus": ""
 }
 
+###课程查询列表
+POST {{gateway_host}}/content/course/list?pageNo=1&pageSize=2
+Content-Type: application/json
+
+{
+  "auditStatus": "",
+  "courseName": "",
+  "publishStatus": ""
+}
+
 ###课程分类树查询
 GET {{content_host}}/content/course-category/tree-nodes?id=1
 
@@ -98,3 +108,15 @@ Content-Type: application/x-www-form-urlencoded
 
 ###查询教师列表
 GET http://localhost:63040/content/courseTeacher/list/72
+
+
+###上传文件
+POST {{media_host}}/upload/coursefile
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="filedata"; filename="1.jpg"
+Content-Type: application/octet-stream
+
+@/Users/lilijiabao/Pictures/微信/11701705988390_.pic.jpg
+--WebAppBoundary--

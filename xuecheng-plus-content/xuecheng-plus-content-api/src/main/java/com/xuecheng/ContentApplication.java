@@ -12,6 +12,7 @@ import org.springframework.boot.SpringApplication;
  */
 @EnableSwagger2Doc
 @SpringBootApplication
+//nacos配置
 public class ContentApplication {
     public static void main(String[] args) {
         SpringApplication.run(ContentApplication.class, args);

@@ -6,11 +6,13 @@ import com.xuecheng.base.exception.DeleteException;
 import com.xuecheng.base.exception.XueChengPlusException;
 import com.xuecheng.content.mapper.TeachplanMapper;
 import com.xuecheng.content.mapper.TeachplanMediaMapper;
+import com.xuecheng.content.model.dto.BindingVideoAPIRequestDto;
 import com.xuecheng.content.model.dto.SaveTeachplanDto;
 import com.xuecheng.content.model.dto.TeachplanDto;
 import com.xuecheng.content.model.po.Teachplan;
 import com.xuecheng.content.model.po.TeachplanMedia;
 import com.xuecheng.content.service.TeachplanService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,6 +30,7 @@ import java.util.Map;
  * @Version: 1.0
  */
 @Service
+@Slf4j
 public class TeachplanServiceImpl implements TeachplanService {
     @Autowired
     private TeachplanMapper teachplanMapper;
@@ -150,6 +153,46 @@ public class TeachplanServiceImpl implements TeachplanService {
         LambdaQueryWrapper<Teachplan> queryWrapper1 = new LambdaQueryWrapper<>();
         queryWrapper1.eq(Teachplan::getCourseId,id);
         teachplanMapper.delete(queryWrapper1);
+    }
+
+    @Override
+    @Transactional
+    public void bindVideo(BindingVideoAPIRequestDto bindingVideoAPIRequestDto) {
+        LambdaQueryWrapper<TeachplanMedia> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(TeachplanMedia::getTeachplanId,bindingVideoAPIRequestDto.getTeachplanId());
+        TeachplanMedia teachplanMedia = teachplanMediaMapper.selectOne(queryWrapper);
+        if (teachplanMedia != null){
+            teachplanMedia.setMediaId(bindingVideoAPIRequestDto.getMediaId());
+            teachplanMedia.setMediaFilename(bindingVideoAPIRequestDto.getFileName());
+            teachplanMediaMapper.updateById(teachplanMedia);
+            return;
+        }
+        teachplanMedia = new TeachplanMedia();
+        teachplanMedia.setMediaId(bindingVideoAPIRequestDto.getMediaId());
+        teachplanMedia.setMediaFilename(bindingVideoAPIRequestDto.getFileName());
+        teachplanMedia.setTeachplanId(bindingVideoAPIRequestDto.getTeachplanId());
+        Teachplan teachplan = teachplanMapper.selectById(bindingVideoAPIRequestDto.getTeachplanId());
+        if (teachplan == null){
+            //提示课程计划不存在
+            log.error("课程计划不存在,课程计划 Id 为{}",bindingVideoAPIRequestDto.getTeachplanId());
+            XueChengPlusException.cast("课程计划不存在");
+        }
+        Long courseId = teachplan.getCourseId();
+        teachplanMedia.setCourseId(courseId);
+        teachplanMedia.setCreateDate(LocalDateTime.now());
+        teachplanMediaMapper.insert(teachplanMedia);
+    }
+
+    @Override
+    public void deleteAssociationMedia(Long teachPlanId, String mediaId) {
+        LambdaQueryWrapper<TeachplanMedia> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(TeachplanMedia::getTeachplanId,teachPlanId).eq(TeachplanMedia::getMediaId,mediaId);
+        int delete = teachplanMediaMapper.delete(queryWrapper);
+        if (delete == 0){
+            //提示关联关系不存在
+            log.error("关联关系不存在,课程计划 Id 为{},媒体 Id 为{}",teachPlanId,mediaId);
+            XueChengPlusException.cast("关联关系不存在");
+        }
     }
 
     private void swapOrder(Teachplan t1, Teachplan t2) {

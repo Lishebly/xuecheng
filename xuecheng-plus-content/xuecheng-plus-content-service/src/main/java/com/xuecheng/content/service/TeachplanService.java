@@ -1,5 +1,6 @@
 package com.xuecheng.content.service;
 
+import com.xuecheng.content.model.dto.BindingVideoAPIRequestDto;
 import com.xuecheng.content.model.dto.SaveTeachplanDto;
 import com.xuecheng.content.model.dto.TeachplanDto;
 
@@ -43,4 +44,18 @@ public interface TeachplanService {
      * @param id
      */
     void deleteTeachplanByCourseId(Long id);
+
+
+    /**
+     * 课程计划和媒资信息绑定
+     * @param bindingVideoAPIRequestDto
+     */
+    void bindVideo(BindingVideoAPIRequestDto bindingVideoAPIRequestDto);
+
+    /**
+     * 课程计划和媒资信息解绑
+     * @param teachPlanId
+     * @param mediaId
+     */
+    void deleteAssociationMedia(Long teachPlanId, String mediaId);
 }
