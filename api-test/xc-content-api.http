@@ -120,3 +120,7 @@ Content-Type: application/octet-stream
 
 @/Users/lilijiabao/Pictures/微信/11701705988390_.pic.jpg
 --WebAppBoundary--
+
+
+###
+GET {{gateway_host}}/coursepreview/1

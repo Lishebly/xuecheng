@@ -143,6 +143,11 @@ public class MediaFileServiceImpl implements MediaFileService {
         }
     }
 
+    @Override
+    public MediaFiles getFileById(String mediaId) {
+        return mediaFilesMapper.selectById(mediaId);
+    }
+
     @Transactional
     public MediaFiles addMediaFilesToDB(Long companyId, String md5, UploadFileParamDto uploadFileParamDto, String bucketFiles, String objname) {
         MediaFiles mediaFiles = new MediaFiles();

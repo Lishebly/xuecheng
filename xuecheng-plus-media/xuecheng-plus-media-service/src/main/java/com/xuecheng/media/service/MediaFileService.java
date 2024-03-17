@@ -160,4 +160,14 @@ public interface MediaFileService {
   * @date 2022/10/15 11:30
   */
  public boolean deleteFileInMinio(String bucket, String filePath);
+
+ /**
+  * @description 获取文件信息
+  * @param mediaId 文件id
+  * @return com.xuecheng.media.model.po.MediaFiles
+  * @author Mr.M
+  * @date 2022/10/15 11:30
+  */
+ MediaFiles getFileById(String mediaId);
+
 }

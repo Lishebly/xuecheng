@@ -16,13 +16,17 @@ import java.util.Arrays;
 public class SystemCodeGenerator1 {
 
 	// TODO 修改服务名以及数据表名
-	private static final String SERVICE_NAME = "user";
+	private static final String SERVICE_NAME = "tpp1";
 
 	private static final String DATA_SOURCE_USER_NAME  = "root";
 	private static final String DATA_SOURCE_PASSWORD  = "1234";
 	private static final String[] TABLE_NAMES = new String[]{
-			"course_category",
-			"dictionary",
+		//"audience_hot_comments",
+			"image",
+			//"tb_cinema",
+			//"tb_movie",
+			"tb_movie_actors",
+			//"user"
 	};
 
 	// TODO 默认生成entity，需要生成DTO修改此变量
@@ -54,7 +58,7 @@ public class SystemCodeGenerator1 {
 		// 数据库配置
 		DataSourceConfig dsc = new DataSourceConfig();
 		dsc.setDbType(DbType.MYSQL);
-		dsc.setUrl("jdbc:mysql://localhost:3306/taopiaopiao"
+		dsc.setUrl("jdbc:mysql://localhost:3306/tpp"
 				+ "?useUnicode=true&useSSL=false&characterEncoding=utf8&allowPublicKeyRetrieval=true");
 		dsc.setDriverName("com.mysql.cj.jdbc.Driver");
 		dsc.setUsername(DATA_SOURCE_USER_NAME);
