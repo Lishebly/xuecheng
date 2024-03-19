@@ -161,6 +161,11 @@ public class MediaFileServiceImpl implements MediaFileService {
         mediaFiles.setCreateDate(LocalDateTime.now());
         mediaFiles.setAuditStatus("002003");
         mediaFiles.setStatus("1");
+        MediaFiles mediaFiles1 = mediaFilesMapper.selectById(md5);
+        if(mediaFiles1 != null){
+            log.debug("文件已存在,{}", mediaFiles.toString());
+            return mediaFiles1;
+        }
         int insert = mediaFilesMapper.insert(mediaFiles);
         if (insert < 0) {
             //打印日志,信息全一些

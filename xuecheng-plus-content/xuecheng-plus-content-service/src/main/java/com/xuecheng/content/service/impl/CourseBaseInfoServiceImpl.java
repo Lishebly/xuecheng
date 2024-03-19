@@ -41,7 +41,6 @@ import java.util.List;
 @Slf4j
 public class CourseBaseInfoServiceImpl implements CourseBaseInfoService {
 
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @Autowired
     private CourseBaseMapper courseBaseMapper;
 
