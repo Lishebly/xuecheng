@@ -38,7 +38,7 @@ public interface MediaFileService {
   * @param localFilePath 本地文件路径
   * @return com.xuecheng.media.model.dto.UploadFileResultDto
   */
- public UploadFileResultDto uploadFile(Long companyId, UploadFileParamDto uploadFileParamDto , String localFilePath);
+ public UploadFileResultDto uploadFile(Long companyId, UploadFileParamDto uploadFileParamDto , String localFilePath,String fileName,String folder);
 
  /**
   * 添加文件到数据库

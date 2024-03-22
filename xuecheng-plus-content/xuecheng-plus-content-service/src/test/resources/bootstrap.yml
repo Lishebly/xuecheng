@@ -20,6 +20,7 @@ spring:
   profiles:
     active: dev
 
+
 #  datasource:
 #    driver-class-name: com.mysql.cj.jdbc.Driver
 #    url: jdbc:mysql://localhost:3306/xc402_content?serverTimezone=UTC&userUnicode=true&useSSL=false&
@@ -34,3 +35,21 @@ spring:
 #  version: "1.0"
 #  enabled: true
 #  base-package: com.xuecheng.content
+feign:
+  hystrix:
+    enabled: true
+  circuitbreaker:
+    enabled: true
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 30000  #熔断超时时间
+ribbon:
+  ConnectTimeout: 60000 #连接超时时间
+  ReadTimeout: 60000 #读超时时间
+  MaxAutoRetries: 0 #重试次数
+  MaxAutoRetriesNextServer: 1 #切换实例的重试次数
+

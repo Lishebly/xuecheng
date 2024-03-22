@@ -3,6 +3,7 @@ package com.xuecheng;
 import com.spring4all.swagger.EnableSwagger2Doc;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.SpringApplication;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 
 /**
  * @Description: TODO
@@ -12,6 +13,7 @@ import org.springframework.boot.SpringApplication;
  */
 @EnableSwagger2Doc
 @SpringBootApplication
+@EnableFeignClients(basePackages = {"com.xuecheng.content.feignclient"})
 //nacos配置
 public class ContentApplication {
     public static void main(String[] args) {

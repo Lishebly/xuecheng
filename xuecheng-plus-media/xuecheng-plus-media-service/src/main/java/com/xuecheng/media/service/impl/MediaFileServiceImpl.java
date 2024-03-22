@@ -100,7 +100,8 @@ public class MediaFileServiceImpl implements MediaFileService {
      * @return 返回结果
      */
     @Override
-    public UploadFileResultDto uploadFile(Long companyId, UploadFileParamDto uploadFileParamDto, String localFilePath) {
+    public UploadFileResultDto uploadFile(Long companyId, UploadFileParamDto uploadFileParamDto, String localFilePath,String fileName,String folder) {
+
         //todo 判断公司
         File file = new File(localFilePath);
         if (!file.exists()) {
@@ -111,7 +112,10 @@ public class MediaFileServiceImpl implements MediaFileService {
         //依据年月日加上文件的md5值加上扩展名生成文件名
         String md5 = getMD5(file);
         String extention = getExtention(filename);
-        String objname = getMinioPath(md5, extention);
+        String objname = folder+"/"+fileName+extention;
+        if (StringUtils.isEmpty(folder)){
+            objname = getMinioPath(md5, extention);
+        }
         String mimeType = getMimeType(filename);
         //上传文件到 minio
         boolean flag = uploadToMinio(localFilePath, bucketFiles, mimeType, objname);

@@ -46,6 +46,7 @@ public class MediaFilesController {
                                       @RequestParam(value = "objectName", required = false) String objectName) throws IOException {
 
 
+
         long companyId = 1232141425L;
         UploadFileParamDto uploadFileParamDto = new UploadFileParamDto();
         uploadFileParamDto.setFileSize(upload.getSize());
@@ -56,7 +57,8 @@ public class MediaFilesController {
         //上传到本地
         upload.transferTo(tmpFile);
         String localFilePath = tmpFile.getAbsolutePath();
-        return mediaFileService.uploadFile(companyId, uploadFileParamDto, localFilePath);
+
+        return mediaFileService.uploadFile(companyId, uploadFileParamDto, localFilePath,objectName,folder);
     }
 
 
