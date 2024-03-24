@@ -49,6 +49,9 @@ public class GlobalExceptionHandler {
         //解析出错误信息
         String errMessage = e.getMessage();
         log.error("全局异常捕获：" + errMessage);
+        if (e.getMessage().equals("不允许访问")){
+            return new RestErrorResponse("没有操作此功能的权限");
+        }
         return new RestErrorResponse(CommonError.UNKOWN_ERROR.getErrMessage());
     }
 
